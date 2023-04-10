@@ -7,8 +7,9 @@ module com.example.conveyers_model {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
 
     opens com.example.conveyers_model to javafx.fxml;
     exports com.example.conveyers_model;
+    exports com.example.conveyers_model.controller;
+    opens com.example.conveyers_model.controller to javafx.fxml;
 }

@@ -1,16 +1,424 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.conveyers_model.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="1066.0" style="-fx-background-color: #3C3F41;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.conveyers_model.controller.MainController">
+   <children>
+      <VBox prefHeight="539.0" prefWidth="258.0" style="-fx-border-color: #323232;">
+         <children>
+            <Label prefHeight="135.0" prefWidth="256.0" text="МОДЕЛЬ ГЕНЕРАЛЬНОГО ВАГОНОРЕМОНТНОГО ПОТОКУ" textAlignment="CENTER" textFill="#bbbbbb" wrapText="true">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label alignment="BOTTOM_LEFT" prefHeight="17.0" prefWidth="77.0" text="Вихідні дані" textFill="GREY" />
+            <Button fx:id="btnFlowStructure" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#actionFlowStructure" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #3C3F41;" text="Структура потоку" textFill="#bbbbbb">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+            <Button fx:id="btnRepairProgram" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#actionRepairProgram" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #3C3F41;" text="Програма ремонту" textFill="#bbbbbb">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+            <Button fx:id="btnCharacteristicsOfTemporaryModels" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#actionCharacteristicsOfTemporaryModels" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #3C3F41;" text="Характеристики тимчасових моделей" textFill="#bbbbbb">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+            <Button fx:id="btnEquipmentRecoveryTimes" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#actionEquipmentRecoveryTimes" prefHeight="27.0" prefWidth="260.0" style="-fx-background-color: #3C3F41;" text="Часи відновлення обладнання" textFill="#bbbbbb">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+         </children></VBox>
+      <ButtonBar layoutX="793.0" layoutY="540.0" prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button disable="true" mnemonicParsing="false" style="-fx-background-color: #4C5052; -fx-border-color: #5E6060; -fx-background-radius: 3; -fx-border-radius: 3;" text="Назад" textFill="#bbbbbb">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button layoutX="135.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #365880; -fx-border-color: #4C708C; -fx-background-radius: 3; -fx-border-radius: 3;" text="Вперед" textFill="#bbbbbb">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+            <Button layoutX="50.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #4C5052; -fx-border-color: #5E6060; -fx-background-radius: 3; -fx-border-radius: 3;" text="Назад" textFill="#bbbbbb">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
+        </buttons>
+      </ButtonBar>
+      <Button layoutX="14.0" layoutY="547.0" mnemonicParsing="false" style="-fx-background-color: #4C5052; -fx-border-color: #5E6060; -fx-background-radius: 3; -fx-border-radius: 3;" text="Настройки" textFill="#bbbbbb">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <StackPane layoutX="264.0" layoutY="5.0">
+         <children>
+            <AnchorPane fx:id="anchorPane1" prefHeight="527.0" prefWidth="799.0" visible="false">
+               <children>
+                  <Group layoutX="14.0" layoutY="14.0">
+                     <children>
+                        <CheckBox fx:id="chockBoxCarRepairArea" mnemonicParsing="false" onAction="#handleOptionCarRepairArea" text="Ділянка ремонту вагонів (гнучкий)" textFill="#bbbbbb" />
+                        <Label fx:id="labelRepairPositions" layoutX="5.0" layoutY="23.0" text="Кількість ремонтних позицій" textFill="#bbbbbb" />
+                        <Spinner fx:id="spinnerRepairPositions" layoutX="170.0" layoutY="20.0" prefHeight="10.0" prefWidth="60.0" />
+                        <TableView fx:id="tableRepairPositions" layoutY="50.0" prefHeight="185.0" prefWidth="407.0">
+                          <columns>
+                            <TableColumn prefWidth="107.0" text="Кількість&#10; шляхів" />
+                            <TableColumn prefWidth="114.0" text="Кількість&#10;позицій" />
+                              <TableColumn minWidth="1.0" prefWidth="106.0" text="&#9;Час&#10;переміщення" />
+                              <TableColumn prefWidth="136.0" text=" Надійність&#10;обладнання" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <TableView fx:id="tableNumberOfTransportModules" layoutX="430.0" layoutY="50.0" prefHeight="112.0" prefWidth="329.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Номер&#10;модуля" />
+                            <TableColumn prefWidth="75.0" text="Позиція&#10;обслуговування" />
+                              <TableColumn prefWidth="75.0" text="Надійність&#10;обладнання" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Label fx:id="labelNumberOfTransportModules" layoutX="460.0" layoutY="23.0" prefHeight="17.0" prefWidth="178.0" text="Кількість транспортних модулей" textFill="#bbbbbb" />
+                        <Spinner fx:id="spinnerNumberOfTransportModules" layoutX="645.0" layoutY="20.0" prefHeight="10.0" prefWidth="60.0" />
+                     </children>
+                  </Group>
+                  <Group layoutX="14.0" layoutY="391.0">
+                     <children>
+                        <CheckBox fx:id="checkBoxAreaOfPaintingWagons" mnemonicParsing="false" onAction="#handleOptionAreaOfPaintingWagons" text="Ділянка фарбування вагонів (напівжорсткий)" textFill="#bbbbbb" />
+                        <TableView fx:id="tableAreaOfPaintingWagons" layoutY="25.0" prefHeight="97.0" prefWidth="407.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="Кількість&#10;шляхів" />
+                              <TableColumn prefWidth="75.0" text="Кількість&#10;позицій" />
+                              <TableColumn prefWidth="75.0" text="&#9;Час&#10;переміщення" />
+                              <TableColumn prefWidth="75.0" text=" Надійність&#10;обладнання" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Group>
+                  <Group layoutX="14.0" layoutY="257.0">
+                     <children>
+                        <CheckBox fx:id="checkBoxWagonPreparationSection" mnemonicParsing="false" onAction="#handleOptionWagonPreparationSection" text="Ділянка підготовки вагонів (напівжорсткий)" textFill="#bbbbbb" />
+                        <TableView fx:id="tableWagonPreparationSection" layoutY="25.0" prefHeight="97.0" prefWidth="407.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Кількість&#10;шляхів" />
+                            <TableColumn prefWidth="75.0" text="Кількість&#10;позицій" />
+                              <TableColumn prefWidth="75.0" text="&#9;Час&#10;переміщення" />
+                              <TableColumn prefWidth="75.0" text=" Надійність&#10;обладнання" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Group>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorPane2" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <Group layoutX="24.0" layoutY="26.0">
+                     <children>
+                        <Label text="Параметри об'єктів ремонту" textFill="GREY" />
+                        <TableView layoutX="10.0" layoutY="50.0" prefHeight="98.0" prefWidth="385.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label alignment="BOTTOM_CENTER" text="Группа" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                            <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Тип вагону" wrapText="true" />
+                                 </graphic></TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Вид роботи" wrapText="true" />
+                                 </graphic></TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label prefHeight="38.0" prefWidth="73.0" text="Норма простою" textAlignment="CENTER" wrapText="true" />
+                                 </graphic></TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Пріоритет" wrapText="true" />
+                                 </graphic></TableColumn>
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <Label layoutX="10.0" layoutY="20.0" text="Кількість груп ремонту" textFill="#bbbbbb">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Spinner fx:id="spinnerNumberOfRepairGroups" layoutX="155.0" layoutY="17.0" prefHeight="10.0" prefWidth="60.0" />
+                     </children>
+                  </Group>
+                  <Group layoutX="24.0" layoutY="190.0">
+                     <children>
+                        <Label text="Програма ремонту" textFill="GREY" />
+                        <Label layoutX="10.0" layoutY="20.0" text="Обсяг ремонту за рік" textFill="#bbbbbb">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Spinner fx:id="spinnerVolumeOfRepairsPerYear" layoutX="145.0" layoutY="17.0" prefHeight="25.0" prefWidth="75.0" />
+                        <TableView layoutX="10.0" layoutY="50.0" prefHeight="98.0" prefWidth="385.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label alignment="BOTTOM_CENTER" text="Группа" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Тип вагону" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Вид роботи" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label prefHeight="38.0" prefWidth="73.0" text="Норма простою" textAlignment="CENTER" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Пріоритет" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Group>
+                  <Group layoutX="24.0" layoutY="349.0">
+                     <children>
+                        <Label text="Тимчасові параметри роботи" textFill="GREY" />
+                        <Label layoutX="10.0" layoutY="20.0" text="Крок моделювання" textFill="#bbbbbb">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                        <Spinner fx:id="spinnerModelingStep" layoutX="135.0" layoutY="17.0" prefHeight="10.0" prefWidth="60.0" />
+                        <TableView layoutX="10.0" layoutY="50.0" prefHeight="98.0" prefWidth="385.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label alignment="BOTTOM_CENTER" text="Группа" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Тип вагону" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Вид роботи" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label prefHeight="38.0" prefWidth="92.0" text="Норма простою" textAlignment="CENTER" wrapText="true" />
+                                 </graphic>
+                              </TableColumn>
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Group>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorPane3" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Group layoutX="14.0" layoutY="14.0">
+                     <children>
+                        <Label text="Тимчасові параметри ремонту об'єкту (Ділянка підготовки)" textFill="GREY" />
+                        <GridPane layoutX="10.0" layoutY="20.0" prefHeight="31.0" prefWidth="760.0">
+                          <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="156.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="154.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="156.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="156.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label contentDisplay="CENTER" text="Позиція 1" textFill="#bbbbbb" GridPane.columnIndex="2">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label contentDisplay="CENTER" layoutX="234.0" layoutY="16.0" prefHeight="20.0" prefWidth="64.0" text="Позиція 1" textFill="#bbbbbb">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label contentDisplay="CENTER" layoutX="410.0" layoutY="16.0" text="Позиція 1" textFill="#bbbbbb" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                        <TableView layoutX="10.0" layoutY="50.0" prefHeight="97.0" prefWidth="760.0">
+                          <columns>
+                            <TableColumn prefWidth="70.0">
+                                 <graphic>
+                                    <Label text="Група" />
+                                 </graphic>
+                              </TableColumn>
+                            <TableColumn prefWidth="83.0">
+                                 <graphic>
+                                    <Label prefHeight="17.0" text="М.О." />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="С.К.О" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="М.О." />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="С.К.О" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="М.О." />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="С.К.О" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="М.О." />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="С.К.О" />
+                                 </graphic>
+                              </TableColumn>
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Group>
+                  <Group layoutX="14.0" layoutY="203.0">
+                     <children>
+                        <Label text="Тимчасові параметри ремонту об'єкту (Ділянка ремонту)" textFill="GREY" />
+                        <TableView layoutX="10.0" layoutY="25.0" prefHeight="97.0" prefWidth="760.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Група" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="М.О." />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="С.К.О" />
+                                 </graphic>
+                              </TableColumn>
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Group>
+                  <Group layoutX="14.0" layoutY="347.0">
+                     <children>
+                        <Label text="Тимчасові параметри ремонту об'єкту (Ділянка фарбування)" textFill="GREY" />
+                        <TableView layoutX="10.0" layoutY="25.0" prefHeight="97.0" prefWidth="760.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="Група" />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="М.О." />
+                                 </graphic>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0">
+                                 <graphic>
+                                    <Label text="С.К.О" />
+                                 </graphic>
+                              </TableColumn>
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Group>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorPane4" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <TableView layoutX="58.0" layoutY="33.0" prefHeight="112.0" prefWidth="308.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+                  <TableView layoutX="405.0" layoutY="28.0" prefHeight="122.0" prefWidth="385.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+                  <GridPane alignment="CENTER" layoutX="202.0" layoutY="245.0" prefHeight="40.0" prefWidth="569.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Label" GridPane.columnIndex="3" />
+                        <Label alignment="BOTTOM_CENTER" text="Label" />
+                     </children>
+                  </GridPane>
+               </children></AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>
